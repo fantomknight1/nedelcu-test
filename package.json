@@ -1,0 +1,19 @@
+{
+  "name": "nedelcu-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fantomknight1/nedelcu-test.git"
+  },
+  "author": "Viorel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fantomknight1/nedelcu-test/issues"
+  },
+  "homepage": "https://github.com/fantomknight1/nedelcu-test#readme"
+}
