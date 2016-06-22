@@ -17,5 +17,6 @@ CREATE TABLE customers (
   city VARCHAR(255),
   state VARCHAR(2),
   job_type VARCHAR(255),
-  job_desc TEXT
+  job_desc TEXT,
+  reference VARCHAR(255)
 );
