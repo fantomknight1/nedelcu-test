@@ -1,0 +1,40 @@
+html {
+  display: flex;
+  justify-content: center;
+}
+
+#allbody {
+  width: 98vw;
+}
+
+#navbar {
+  height: 250px;
+  width: 98vw;
+  position: relative;
+  border-bottom: 3px solid blue;
+}
+
+#navUl {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.middleNav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#navNedelcuLogo {
+  background: url('../img/NedelcuMainLogo.jpg');
+  background-size: cover;
+  width: 200px;
+  height: 100px;
+}
+
+.footerContainers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
