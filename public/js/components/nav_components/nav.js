@@ -27,7 +27,7 @@ const Nav = React.createClass({
     return(
       <div className="navContainer">
         <div className="upperNav">
-          <ul className="allUl" id="navUl">
+          <ul className="allUl navUl" id="navUl">
             <div className="navLinks" id="navHome"><ToHome ToHome={ this.ToHome }/></div>
             <div className="navLinks" id="navProjects"><ToProjects ToProjects={ this.ToProjects }/></div>
             <div className="navLinks" id="navAbout"><ToAbout ToAbout={ this.ToAbout }/></div>

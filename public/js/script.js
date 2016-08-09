@@ -8,13 +8,18 @@ const Router          = ReactRouter.Router;
 const Route           = ReactRouter.Route;
 const Navigation      = ReactRouter.Navigation;
 const Link            = ReactRouter.Link;
-const browserHistory  = ReactRouter.browserHistory;
+const hashHistory  = ReactRouter.hashHistory;
 
+const auth            = require( './auth.js' )
 const Nav             = require( './components/nav_components/nav.js' );
 const Home            = require( './components/home.js' );
 const Projects        = require( './components/projects_components/projects.js' );
 const About           = require( './components/about.js' );
 const Contact         = require( './components/contact.js' );
+const Admin           = require( './components/admin.js' );
+const Login           = require( './components/login.js');
+const Signup          = require( './components/signup.js' );
+const notFound        = require( './notFound.js' );
 
 const Footer          = require( './components/footer_components/footer.js' );
 
@@ -25,7 +30,10 @@ const App = React.createClass({
       home : true,
       about : false,
       projects : false,
-      contact : false
+      contact : false,
+      admin : false,
+      signupBox : false,
+      loggedIn : false
     }
   },
 
@@ -34,7 +42,8 @@ const App = React.createClass({
     this.state.projects = false;
     this.state.about = false;
     this.state.contact = false;
-    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact })
+    this.state.admin = false;
+    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact, admin : this.state.admin })
   },
 
   projects : function() {
@@ -42,7 +51,8 @@ const App = React.createClass({
     this.state.projects = true;
     this.state.about = false;
     this.state.contact = false;
-    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact })
+    this.state.admin = false;
+    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact, admin : this.state.admin })
   },
 
   about : function() {
@@ -50,7 +60,8 @@ const App = React.createClass({
     this.state.projects = false;
     this.state.about = true;
     this.state.contact = false;
-    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact })
+    this.state.admin = false;
+    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact, admin : this.state.admin })
   },
 
   contact : function() {
@@ -58,7 +69,52 @@ const App = React.createClass({
     this.state.projects = false;
     this.state.about = false;
     this.state.contact = true;
-    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact })
+    this.state.admin = false;
+    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact, admin : this.state.admin })
+  },
+
+  admin : function() {
+    this.state.home = false;
+    this.state.projects = false;
+    this.state.about = false;
+    this.state.contact = false;
+    this.state.admin = true;
+    this.setState( { home : this.state.home, projects : this.state.projects, about : this.state.about, contact : this.state.contact, admin : this.state.admin })
+  },
+
+  login : function( username, password ) {
+
+    let data = {
+      username: username,
+      password: password
+    }
+    $.post( 'users/login', data )
+    .done( ( data ) => {
+      localStorage.token = data.token;
+      this.state.home = true;
+      this.state.projects = false;
+      this.state.about = false;
+      this.state.contact = false;
+      this.state.loggedIn = true;
+      this.state.signupBox = false;
+      this.setState( { loggedIn : this.state.loggedIn, signupBox : this.state.signupBox,  } )
+    })
+  },
+
+  logout : function() {
+    this.state.loggedIn = false;
+    this.setState( { loggedIn : this.state.loggedIn } )
+  },
+
+  signup : function() {
+    this.state.signupBox = true;
+    this.setState( { signupBox : this.state.signupBox } )
+  },
+
+  signedIn : function() {
+    this.state.signupBox = false;
+    this.state.loggedIn = true;
+    this.setState( { signupBox : this.state.signupBox, loggedIn : this.state.loggedIn } )
   },
 
   render : function() {
@@ -83,6 +139,21 @@ const App = React.createClass({
         <Contact />
       </div>
 
+    let adminPage =
+      <div>
+        <Login />
+        <Signup />
+      </div>
+
+    let signedInView =
+      <div>
+      </div>
+
+    let notSignedIn =
+      <div>
+        <Signup signedIn={ this.signedIn }/>
+      </div>
+
     return (
       <div className="container" id="allBody">
         <div className="row" id="navbar">
@@ -99,22 +170,29 @@ const App = React.createClass({
             { this.state.about ? aboutPage : '' }
 
             { this.state.contact ? contactPage : '' }
+
+            { this.state.admin ? adminPage : '' }
           </div>
         </div>
         <div className="row" id="footerBar">
-          <Footer />
+          <Footer admin={ this.admin }/>
         </div>
       </div>
     )
   }
 });
 
-
 const routes = (
-  <Router history={ browserHistory }>
+  <Router history={ hashHistory }>
     <Route path="/" component={ App } >
-      <Route path="home" component={ Home }> </Route>
-      <Route path="about" component={ About }> </Route>
+      <Route path="home" component={ Home } />
+      <Route path="projects" component={ Projects } />
+      <Route path="about" component={ About } />
+      <Route path="contact" component={ Contact } />
+      <Route path="admin" component= {Admin}/>
+      <Route path="admin/signup" component={ Signup } />
+      <Route path="admin/login" component={ Login } />
+      <Route path="*" component={ notFound } />
     </Route>
   </Router>
 )

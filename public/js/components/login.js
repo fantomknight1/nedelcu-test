@@ -1,6 +1,7 @@
 const React = require( 'react' );
 
 const Login = React.createClass({
+
   handleLogin : function( event ) {
     event.preventDefault();
     const username = this.refs.username.value;

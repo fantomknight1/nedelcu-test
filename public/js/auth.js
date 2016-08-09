@@ -1,4 +1,5 @@
 module.exports = {
+  
   login( email, pass, cb ) {
     cb = arguments[ arguments.length -1 ]
     if ( localStorage.token ) {
@@ -26,7 +27,7 @@ module.exports = {
       return
     }
     signupRequest( email, pass, ( res ) => {
-      If ( res.authenticated ) {
+      if ( res.authenticated ) {
         localStorage.token = res.token
         if ( cb ) cb( true )
         this.onChange( true )

@@ -1,17 +1,24 @@
 const React = require( 'react' );
 const InteriorProjects = require( './interior_projects/interiorProjects.js' );
+const ExteriorProjects = require( './exterior_projects/exteriorProjects.js' );
 
 const Projects = React.createClass( {
 
   getInitialState : function() {
     return {
-      InteriorProjects : true
+      InteriorProjects : true,
+      ExteriorProjects : true
     }
+  },
+
+  exteriorProjects : function() {
+    this.state.exteriorProjects = true;
+    this.setState( { exteriorProjects : this.state.exteriorProjects } )
   },
 
   interiorProjects : function() {
     this.state.interiorProjects = true;
-    this.setState( { interiorProjects : this.state.interiorProjects })
+    this.setState( { interiorProjects : this.state.interiorProjects } )
   },
 
   render : function() {
@@ -19,6 +26,11 @@ const Projects = React.createClass( {
     let interiorProjectsPage =
       <div>
         <InteriorProjects />
+      </div>
+
+    let exteriorProjectsPage =
+      <div>
+        <ExteriorProjects />
       </div>
 
     return (
@@ -29,6 +41,7 @@ const Projects = React.createClass( {
         <div className="middleProjects">
           <div className="leftSide" id="projectsMenu">
             { interiorProjectsPage }
+            { exteriorProjectsPage }
           </div>
           <div className="rightSide" id="projectsDisplay">
 

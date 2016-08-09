@@ -1,17 +1,22 @@
-const React = require( 'react' );
+const React           = require( 'react' );
+const ReactRouter     = require( 'react-router' );
+const hashHistory     = ReactRouter.hashHistory;
+const Navigation      = ReactRouter.Navigation;
+const Link            = ReactRouter.Link;
 
 const ToTilework = React.createClass({
 
   handleTilework : function( event ){
     event.preventDefault();
-    this.props.ToCeilings();
+    this.props.ToTilework();
+    hashHistory.push('/projects/interior/tilework')
   },
 
   render : function(){
     return(
       <li>
         <div className="outerIntProjButton" id="outerTileworkButton">
-          <button className="intProjButton" id="tileworkButton" onClick={ this.handleTilework }>Tilework</button>
+          <Link to="tilework"><button className="intProjButton" id="tileworkButton" onClick={ this.handleTilework }>Tilework</button></Link>
         </div>
       </li>
     )

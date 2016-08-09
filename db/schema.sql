@@ -20,3 +20,9 @@ CREATE TABLE customers (
   job_desc TEXT,
   reference VARCHAR(255)
 );
+
+CREATE TABLE users_customers_join (
+  user_id INTEGER REFERENCES users,
+  customer_id INTEGER REFERENCES jobs,
+  PRIMARY KEY ( user_id, job_id )
+)
